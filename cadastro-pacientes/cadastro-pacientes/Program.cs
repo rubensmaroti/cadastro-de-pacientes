@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace cadastro_pacientes
 {
     static class Program
@@ -16,7 +17,7 @@ namespace cadastro_pacientes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frCadastrodePacientes());
         }
     }
 }

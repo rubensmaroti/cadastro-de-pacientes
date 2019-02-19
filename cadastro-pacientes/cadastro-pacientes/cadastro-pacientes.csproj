@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +65,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -76,7 +80,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Biblioteca\Biblioteca.csproj">
+      <Project>{b42766fa-0c0a-4ccf-9954-b012ad7e74e1}</Project>
+      <Name>Biblioteca</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Imagens\dcm %281%29.jpg" />
     <Content Include="Imagens\dcm %2810%29.jpg" />
@@ -1079,6 +1088,11 @@
     <Content Include="Imagens\dcm %28998%29.jpg" />
     <Content Include="Imagens\dcm %28999%29.jpg" />
     <Content Include="Imagens\read-me.txt" />
+    <None Include="Resources\icons8-close-window-64.png" />
+    <None Include="Resources\icons8-close-window-32.png" />
+    <None Include="Resources\icons8-close-window-641.png" />
+    <None Include="Resources\icons8-minimize-window-32.png" />
+    <None Include="Resources\icons8-minimize-window-64.png" />
     <Content Include="Scripts\read-me.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
