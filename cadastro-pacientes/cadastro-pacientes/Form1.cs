@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Biblioteca.VOs;
+using Biblioteca.Exceptions;
+using Biblioteca.DAOs;
 
 namespace cadastro_pacientes
 {
@@ -38,6 +40,8 @@ namespace cadastro_pacientes
         private void frCadastrodePacientes_Load(object sender, EventArgs e)
         {
             this.MaximizeBox = false;
+            mskdtxtCPF.TextMaskFormat = 0;
+            mskdtxtTelefone.TextMaskFormat = 0;
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
@@ -58,6 +62,13 @@ namespace cadastro_pacientes
                 paciente.DataNasc = Convert.ToDateTime(mskdtxtData.Text);
                 paciente.Email = txtEmai.Text;
                 paciente.Telefone = mskdtxtTelefone.Text;
+
+                PacienteDAO.Insert(paciente);
+
+            }
+            catch (ValidacaoException x)
+            {
+                MessageBox.Show(x.Message);
             }
             catch (Exception x)
             {

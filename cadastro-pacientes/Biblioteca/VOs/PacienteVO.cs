@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Biblioteca.Exceptions;
 
 namespace Biblioteca.VOs
 {
@@ -25,47 +26,46 @@ namespace Biblioteca.VOs
         public string Nome
         {
             get => nome;
-            set => nome = (string.IsNullOrWhiteSpace(value) || !value.Contains(' ')) ? throw new Exception("Nome Inválido") : value;
+            set => nome = (string.IsNullOrWhiteSpace(value) || !value.Contains(' ')) ? throw ValidacaoException.NomeValidacao : value;
         }
 
         public char Sexo
         {
             get => sexo;
-            set => sexo = (value.ToString().ToUpper() == "F" || value.ToString().ToUpper() == "M") ?  value: throw new Exception("Sexo Inválido");
+            set => sexo = (value.ToString().ToUpper() == "F" || value.ToString().ToUpper() == "M") ?  value: throw ValidacaoException.SexoValidacao;
         }
 
         public DateTime DataNasc
         {
             get => dataNasc;
-            set => dataNasc = (DateTime.Now < value) ? throw new Exception("Data de Nascimento Inválida") : value;
+            set => dataNasc = (DateTime.Now < value) ? throw ValidacaoException.DataNascValidacao : value;
         }
 
         public string Email
         {
             get => email;
-            set => email = (string.IsNullOrEmpty(value) || !value.Contains('@')) ? throw new Exception("e-mail Inválido") : value;
+            set => email = (string.IsNullOrEmpty(value) || !value.Contains('@')|| !value.Contains('.')||value.ElementAt(value.Length-1) == '.') ? throw ValidacaoException.EmailValidcao : value;
         }
 
         public string Telefone
         {
             get => telefone;
-            set => telefone = value;
+            set => telefone = VerificaTelefone( value);
         }
 
 
         private string VerificaCPF(string cpf)
         {
-            if (cpf.Length != 14)
+            if (cpf.Length != 11)
             {
-                throw new Exception("CPF inválido");
+                throw ValidacaoException.CpfValidacao;
             }
-            string aux = cpf;
+            
             int soma = 0;
             int mult = 10;
 
             int[] digitos = new int[2];
-
-            cpf = cpf.Replace(".","").Replace(",","").Substring(0,9);
+           
 
             for (int i = 0; i < 9; i++)
             {
@@ -87,23 +87,24 @@ namespace Biblioteca.VOs
             digitos[1] = (11 - soma == 10) ? 0 : 11 - soma;
 
 
-            cpf = aux.Replace("-", "").Replace(",", "").Replace(".", "").Remove(0, 9);
+            string aux = cpf.Remove(0, 9);
             
-            if (cpf != (digitos[0].ToString()+digitos[1].ToString()))
-                throw new Exception("CPF inválido");
+            if (aux != (digitos[0].ToString()+digitos[1].ToString()))
+                throw ValidacaoException.CpfValidacao;
 
             else
-                return aux;
+                return cpf;
 
         }
 
         private string VerificaTelefone(string telefone)
         {
-            if (telefone.StartsWith(string.Format("__ ")))
+            int a;
+            if (int.TryParse(telefone,out a))
             {
                 return telefone;
             }
-            throw new Exception("Telefone inválido");
+            throw ValidacaoException.TelefoneValidacao;
         }
 
     }
