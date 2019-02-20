@@ -36,7 +36,7 @@ namespace Biblioteca.VOs
 
 
             if (string.IsNullOrEmpty(PacienteCPF))
-                throw new Exception("O nome da imagem será igual ao da figurinha, logo este não pode ser vazio ");
+                throw new Exception("O nome da imagem será igual ao do CPF , junto cm, logo este não pode ser vazio ");
 
             File.Copy(openFileDialog.FileName, (pastaImagens + PacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName)), false);
 

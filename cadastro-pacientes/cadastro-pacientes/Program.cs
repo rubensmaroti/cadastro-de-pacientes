@@ -17,7 +17,7 @@ namespace cadastro_pacientes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frCadastrodePacientes());
+            Application.Run(new frInicio());
         }
     }
 }

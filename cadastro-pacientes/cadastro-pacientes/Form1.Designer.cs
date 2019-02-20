@@ -54,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(97, 9);
+            this.label1.Location = new System.Drawing.Point(54, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 1;
@@ -63,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(92, 58);
+            this.label2.Location = new System.Drawing.Point(49, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 3;
@@ -79,11 +79,12 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(92, 104);
+            this.label3.Location = new System.Drawing.Point(49, 104);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Sexo";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // cbSexo
             // 
@@ -99,7 +100,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(64, 151);
+            this.label4.Location = new System.Drawing.Point(197, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 13);
             this.label4.TabIndex = 8;
@@ -107,7 +108,7 @@
             // 
             // mskdtxtData
             // 
-            this.mskdtxtData.Location = new System.Drawing.Point(52, 167);
+            this.mskdtxtData.Location = new System.Drawing.Point(200, 25);
             this.mskdtxtData.Mask = "00/00/0000";
             this.mskdtxtData.Name = "mskdtxtData";
             this.mskdtxtData.Size = new System.Drawing.Size(131, 20);
@@ -116,7 +117,7 @@
             // 
             // txtEmai
             // 
-            this.txtEmai.Location = new System.Drawing.Point(52, 212);
+            this.txtEmai.Location = new System.Drawing.Point(200, 74);
             this.txtEmai.Name = "txtEmai";
             this.txtEmai.Size = new System.Drawing.Size(131, 20);
             this.txtEmai.TabIndex = 10;
@@ -124,7 +125,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(92, 196);
+            this.label5.Location = new System.Drawing.Point(197, 58);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 9;
@@ -133,7 +134,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(92, 241);
+            this.label6.Location = new System.Drawing.Point(197, 104);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 12;
@@ -141,7 +142,7 @@
             // 
             // mskdtxtTelefone
             // 
-            this.mskdtxtTelefone.Location = new System.Drawing.Point(52, 257);
+            this.mskdtxtTelefone.Location = new System.Drawing.Point(200, 121);
             this.mskdtxtTelefone.Mask = "(00) 0000-0000";
             this.mskdtxtTelefone.Name = "mskdtxtTelefone";
             this.mskdtxtTelefone.Size = new System.Drawing.Size(131, 20);
@@ -149,7 +150,7 @@
             // 
             // btnCadastrar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(246, 254);
+            this.btnCadastrar.Location = new System.Drawing.Point(155, 158);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(75, 23);
             this.btnCadastrar.TabIndex = 13;
@@ -162,7 +163,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(484, 296);
+            this.ClientSize = new System.Drawing.Size(366, 198);
             this.Controls.Add(this.btnCadastrar);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.mskdtxtTelefone);
