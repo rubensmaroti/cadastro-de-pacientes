@@ -32,7 +32,7 @@ namespace Biblioteca.VOs
         public char Sexo
         {
             get => sexo;
-            set => sexo = (value.ToString().ToUpper() == "F" || value.ToString().ToUpper() == "M") ?  value: throw ValidacaoException.SexoValidacao;
+            set => sexo = (value.ToString().ToUpper() == "F" || value.ToString().ToUpper() == "M") ? value : throw ValidacaoException.SexoValidacao;
         }
 
         public DateTime DataNasc
@@ -44,28 +44,31 @@ namespace Biblioteca.VOs
         public string Email
         {
             get => email;
-            set => email = (string.IsNullOrEmpty(value) || !value.Contains('@')|| !value.Contains('.')||value.ElementAt(value.Length-1) == '.') ? throw ValidacaoException.EmailValidcao : value;
+            set => email = (string.IsNullOrEmpty(value) || !value.Contains('@') || !value.Contains('.') || value.ElementAt(value.Length - 1) == '.') ? throw ValidacaoException.EmailValidcao : value;
         }
 
         public string Telefone
         {
             get => telefone;
-            set => telefone = VerificaTelefone( value);
+            set => telefone = VerificaTelefone(value);
         }
 
 
         private string VerificaCPF(string cpf)
         {
-            if (cpf.Length != 11)
+            int a;
+
+            cpf = cpf.Replace(".", "").Replace(",", "").Replace("-", "");
+            if (!int.TryParse(cpf, out a) || cpf.Length !=11)
             {
                 throw ValidacaoException.CpfValidacao;
             }
-            
+
             int soma = 0;
             int mult = 10;
 
             int[] digitos = new int[2];
-           
+
 
             for (int i = 0; i < 9; i++)
             {
@@ -88,8 +91,8 @@ namespace Biblioteca.VOs
 
 
             string aux = cpf.Remove(0, 9);
-            
-            if (aux != (digitos[0].ToString()+digitos[1].ToString()))
+
+            if (aux != (digitos[0].ToString() + digitos[1].ToString()))
                 throw ValidacaoException.CpfValidacao;
 
             else
@@ -99,10 +102,18 @@ namespace Biblioteca.VOs
 
         private string VerificaTelefone(string telefone)
         {
-            int a;
-            if (int.TryParse(telefone,out a))
+            telefone.Replace("(", "").Replace(")", "").Replace(".", "").Replace(" ", "");
+            int a = 0;
+            if (telefone.Length == 11 || telefone.Length == 10)
             {
-                return telefone;
+                if (int.TryParse(telefone, out a))
+                {
+                    return telefone;
+                }
+                else
+                {
+                    throw ValidacaoException.TelefoneValidacao;
+                }
             }
             throw ValidacaoException.TelefoneValidacao;
         }
