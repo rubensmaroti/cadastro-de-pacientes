@@ -7,46 +7,56 @@
         xmlns:local="clr-namespace:VersaoWPF"
         mc:Ignorable="d"
         Title="frCadastro" Height="460.909" Width="678.182" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded">
-    <Grid>
-        <Rectangle>
-            <Rectangle.Fill>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="LightCyan" Offset="1"/>
-                    <GradientStop Color="#FF28B7D6"/>
-                    <GradientStop Color="#FF06D3FF"/>
-                </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Height="276" Fill="White" VerticalAlignment="Bottom" Margin="10,0,10,93">
-            <Rectangle.Effect>
-                <DropShadowEffect Direction="0" Color="#FF740404" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <Grid Margin="10,143,10,93">
-            <TextBox x:Name="txtCPF" materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,18,355,0" Height="50" VerticalAlignment="Top" KeyDown="txtCPF_KeyDown" PreviewKeyUp="txtCPF_PreviewKeyUp" PreviewKeyDown="txtCPF_PreviewKeyDown" TextChanged="txtCPF_TextChanged"/>
-            <TextBox x:Name="txtNome" materialDesign:HintAssist.Hint="NOME" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,66,355,0" Height="50" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cbSexo" materialDesign:HintAssist.Hint="SEXO" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="LightBlue" Margin="10,129,355,0" Height="35" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtDataDeNascimento" materialDesign:HintAssist.Hint="DATA DE NASCIMENTO" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,114,10,0" Height="50" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtEmail" materialDesign:HintAssist.Hint="E-MAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,18,10,0" TextChanged="TxtEmail_TextChanged" Height="50" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtTelefone" materialDesign:HintAssist.Hint="TELEFONE" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,66,10,0" Height="50" VerticalAlignment="Top" KeyDown="txtTelefone_KeyDown" PreviewKeyDown="txtTelefone_PreviewKeyDown" PreviewKeyUp="txtTelefone_PreviewKeyUp" TextChanged="txtTelefone_TextChanged"/>
+    <Grid Visibility="Visible">
+        <Grid  Name="gridMain" Visibility="Visible" >
+
+            <Rectangle>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="LightCyan" Offset="1"/>
+                        <GradientStop Color="#FF28B7D6"/>
+                        <GradientStop Color="#FF06D3FF"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Height="276" Fill="White" VerticalAlignment="Bottom" Margin="10,0,10,93">
+                <Rectangle.Effect>
+                    <DropShadowEffect Direction="0" Color="#FF740404" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid Margin="10,143,10,93">
+                <TextBox x:Name="txtCPF" materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,18,355,0" Height="50" VerticalAlignment="Top"  KeyDown="txtCPF_KeyDown" PreviewKeyUp="txtCPF_PreviewKeyUp" PreviewKeyDown="txtCPF_PreviewKeyDown" TextChanged="txtCPF_TextChanged" BorderBrush="#FF03A9F4"/>
+                <TextBox x:Name="txtNome" materialDesign:HintAssist.Hint="NOME" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,66,355,0" Height="50" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+                <ComboBox x:Name="cbSexo" materialDesign:HintAssist.Hint="SEXO" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="LightBlue" Margin="10,129,355,0" Height="35" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+                <TextBox x:Name="txtDataDeNascimento" materialDesign:HintAssist.Hint="DATA DE NASCIMENTO" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,114,10,0" Height="50" VerticalAlignment="Top" TextChanged="txtDataDeNascimento_TextChanged" BorderBrush="#FF03A9F4"/>
+                <TextBox x:Name="txtEmail" materialDesign:HintAssist.Hint="E-MAIL" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,18,10,0" TextChanged="TxtEmail_TextChanged" Height="50" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+                <TextBox x:Name="txtTelefone" materialDesign:HintAssist.Hint="TELEFONE" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="355,66,10,0" Height="50" VerticalAlignment="Top" KeyDown="txtTelefone_KeyDown" PreviewKeyDown="txtTelefone_PreviewKeyDown" PreviewKeyUp="txtTelefone_PreviewKeyUp" TextChanged="txtTelefone_TextChanged" BorderBrush="#FF03A9F4"/>
 
 
-        </Grid>
-        <Label Content=" Cadastro de Pacientes " HorizontalAlignment="Left" Margin="211,100,0,0" VerticalAlignment="Top" Width="221" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
-        <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="612,0,33,429" Height="32" VerticalAlignment="Bottom" Click="BtnMinimizar_Click">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/delete.png"/>
-            </Button.Background>
+            </Grid>
+            <Label Content=" Cadastro de Pacientes " HorizontalAlignment="Left" Margin="211,100,0,0" VerticalAlignment="Top" Width="221" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
+            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="612,0,33,429" Height="32" VerticalAlignment="Bottom" Click="BtnMinimizar_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/delete.png"/>
+                </Button.Background>
 
-        </Button>
-        <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="645,0,0,429" Height="Auto" Click="BtnSair_Click">
-            <Button.Background>
-                <ImageBrush ImageSource="Assets/wrong.png"/>
-            </Button.Background>
+            </Button>
+            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="645,0,0,429" Height="Auto" Click="BtnSair_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/wrong.png"/>
+                </Button.Background>
 
-        </Button>
-        <Image Margin="39,19,519,323" Source="Assets/hospital.png" Stretch="Fill"/>
-        <Button x:Name="btnCadastrar" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="183,0,211,41" Content="CADASTRAR NOVO PACIENTE" Background="#FF2C6AD8" Click="BtnCadastrar_Click"  />
+            </Button>
+            <Image Margin="39,19,519,323" Source="Assets/hospital.png" Stretch="Fill"/>
+            <Button x:Name="btnCadastrar" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="183,0,211,41" Content="CADASTRAR NOVO PACIENTE" Background="#FF2C6AD8" Click="BtnCadastrar_Click"  />
+            <Button x:Name="btnMinimizar_Copy" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="579,0,66,429" Height="32" VerticalAlignment="Bottom" >
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/info.png"/>
+                </Button.Background>
+
+            </Button>
+        </Grid>        
 
     </Grid>
+
 </Window>

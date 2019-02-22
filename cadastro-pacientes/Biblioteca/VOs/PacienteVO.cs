@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Biblioteca.Exceptions;
+using Biblioteca.Enumeradores;
 
 namespace Biblioteca.VOs
 {
     public class PacienteVO
     {
+        private Tipo tipo = Tipo.Paciente;
         private string pacienteCPF;
         private string nome;
         private char sexo;
@@ -59,7 +61,8 @@ namespace Biblioteca.VOs
             int a;
 
             cpf = cpf.Replace(".", "").Replace(",", "").Replace("-", "");
-            if (!int.TryParse(cpf, out a) || cpf.Length !=11)
+           
+            if (cpf.Length != 11)
             {
                 throw ValidacaoException.CpfValidacao;
             }
@@ -77,17 +80,18 @@ namespace Biblioteca.VOs
             }
             soma = soma % 11;
 
-            digitos[0] = (11 - soma == 10) ? 0 : 11 - soma;
+            digitos[0] = (11 - soma == 10 || soma == 0) ? 0 : 11 - soma;
 
             mult = 11;
-            for (int i = 0; i < 9; i++)
+            soma = 0;
+            for (int i = 0; i < 10; i++)
             {
-                soma += (Convert.ToInt32(cpf[i]) * mult);
+                soma += (Convert.ToInt32(cpf[i].ToString()) * mult);
                 mult--;
             }
             soma = soma % 11;
 
-            digitos[1] = (11 - soma == 10) ? 0 : 11 - soma;
+            digitos[1] = (11 - soma == 10 || soma == 0) ? 0 : 11 - soma;
 
 
             string aux = cpf.Remove(0, 9);
@@ -102,18 +106,14 @@ namespace Biblioteca.VOs
 
         private string VerificaTelefone(string telefone)
         {
-            telefone.Replace("(", "").Replace(")", "").Replace(".", "").Replace(" ", "");
-            int a = 0;
+            telefone = telefone.Replace("(", "").Replace(")", "").Replace(".", "").Replace(" ", "").Replace("-", "");
+           
             if (telefone.Length == 11 || telefone.Length == 10)
             {
-                if (int.TryParse(telefone, out a))
-                {
+               
                     return telefone;
-                }
-                else
-                {
-                    throw ValidacaoException.TelefoneValidacao;
-                }
+                
+               
             }
             throw ValidacaoException.TelefoneValidacao;
         }

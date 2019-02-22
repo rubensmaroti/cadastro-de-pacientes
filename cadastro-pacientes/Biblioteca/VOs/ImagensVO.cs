@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Windows.Forms;
+using Biblioteca.Enumeradores;
+using Microsoft.Win32;
+using Biblioteca.Exceptions;
+
 
 namespace Biblioteca.VOs
 {
-    class ImagensVO
+    public class ImagensVO
     {
         private string caminho;
         private string pacienteCPF;
@@ -19,7 +22,7 @@ namespace Biblioteca.VOs
             set => caminho = value;
         }
 
-        protected string PacienteCPF
+        public string PacienteCPF
         {
             get => pacienteCPF;
             set => pacienteCPF = value;
@@ -27,26 +30,34 @@ namespace Biblioteca.VOs
 
         public void SalvarImagem(OpenFileDialog openFileDialog)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
+            if (string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(openFileDialog.FileName)))
+            {
+                throw ValidacaoException.ImagemValidaco;
+            }
+            else
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory;
 
-            string pastaImagens = path + @"..\..\Assets\imagens\";
-            if (Directory.Exists(pastaImagens) == false)
-                Directory.CreateDirectory(pastaImagens);
+                string pastaImagens = path + @"..\..\Registros\Imagens\" + PacienteCPF;
+                if (Directory.Exists(pastaImagens) == false)
+                    Directory.CreateDirectory(pastaImagens);
 
 
 
-            if (string.IsNullOrEmpty(PacienteCPF))
-                throw new Exception("O nome da imagem será igual ao do CPF , junto cm, logo este não pode ser vazio ");
+                if (string.IsNullOrEmpty(PacienteCPF))
+                    throw new Exception("O diretório da imagem será uma pasta nomeada com o cpf do paciente por favor o preencha.");
 
-            File.Copy(openFileDialog.FileName, (pastaImagens + PacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName)), false);
+                File.Copy(openFileDialog.FileName, (pastaImagens + @"\" + pacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName)), false);
 
-            Caminho = PacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName);
+                Caminho = PacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName);
+            }
+
 
         }
 
-        private void SetImageCPFfromPacienteVO( PacienteVO paciente)
+        private void SetImageCPFfromPacienteVO(PacienteVO paciente)
         {
-            PacienteCPF =  paciente.PacienteCPF;
+            PacienteCPF = paciente.PacienteCPF;
         }
     }
 }

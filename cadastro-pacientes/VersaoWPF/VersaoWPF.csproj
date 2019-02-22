@@ -60,7 +60,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes Auxiliares\VariaveisGlobais.cs" />
     <Page Include="frCadastro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frPesquisa.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frSalvarImagens.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -72,8 +81,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConverterCPF.cs" />
     <Compile Include="frCadastro.xaml.cs">
       <DependentUpon>frCadastro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frPesquisa.xaml.cs">
+      <DependentUpon>frPesquisa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frSalvarImagens.xaml.cs">
+      <DependentUpon>frSalvarImagens.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -122,5 +138,9 @@
       <Name>Biblioteca</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\info.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

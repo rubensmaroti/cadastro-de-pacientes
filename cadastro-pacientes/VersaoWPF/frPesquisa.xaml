@@ -1,0 +1,96 @@
+﻿<Window x:Class="VersaoWPF.frPesquisa"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:VersaoWPF"
+        mc:Ignorable="d"
+        Title="frCadastro" Height="632" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:ConverterCPF x:Key="ConverterCPF"/>
+    </Window.Resources>
+    <Grid Visibility="Visible">
+        <Grid  Name="gridMain" Visibility="Visible" >
+
+            <Rectangle>
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="LightCyan" Offset="1"/>
+                        <GradientStop Color="#FF28B7D6"/>
+                        <GradientStop Color="#FF06D3FF"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Height="521" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18,51,14,28" RenderTransformOrigin="0.5,0.5" Width="418" >
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+                <Rectangle.Effect>
+                    <DropShadowEffect Direction="0" Color="#FF740404" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Label Content=" Seleção de Paciente " HorizontalAlignment="Left" Margin="125,70,0,0" VerticalAlignment="Top" Width="201" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
+            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="379,0,40,589" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnMinimizarClick">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/delete.png"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="410,0,9,589" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnSair_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/wrong.png"/>
+                </Button.Background>
+
+            </Button>
+            <Image  Source="Assets/hospital.png" HorizontalAlignment="Left" Height="92" Margin="24,10,0,0" VerticalAlignment="Top" Width="96"/>
+
+        </Grid>
+        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="457" VerticalAlignment="Top" Width="405" Margin="25,111,0,0" SelectionChanged="DataGrid_SelectionChanged" Background="#FF1D8191">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="CPF" Binding="{Binding PacienteCPF, Converter={StaticResource ConverterCPF}}" IsReadOnly="True" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" IsReadOnly="True"></DataGridTextColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btnInfo" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="346,0,73,588" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Background>
+                <ImageBrush ImageSource="Assets/info.png"/>
+            </Button.Background>
+
+        </Button>
+
+    </Grid>
+
+</Window>

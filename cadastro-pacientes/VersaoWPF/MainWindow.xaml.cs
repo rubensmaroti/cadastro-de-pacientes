@@ -42,5 +42,13 @@ namespace VersaoWPF
         {
             Application.Current.Shutdown();
         }
+
+        private void btnSalvarImagens_Click(object sender, RoutedEventArgs e)
+        {
+            frSalvarImagens salvarImagem = new frSalvarImagens();
+            this.Hide();
+            salvarImagem.ShowDialog();
+            this.Show();
+        }
     }
 }

@@ -11,8 +11,8 @@ namespace Biblioteca
     {
         public static SqlConnection GetConexao()
         {
-            // string strCon = "Data Source=LOCALHOST;Initial Catalog=CadastroDePacienteDB; integrated security=true";
-            string strCon = "Data Source=LOCALHOST;Initial Catalog=CadastroDePacienteDB; user id=sa; password=123456";
+            string strCon = "Data Source=LOCALHOST;Initial Catalog=CadastroDePacienteDB; integrated security=true";
+            //string strCon = "Data Source=LOCALHOST;Initial Catalog=CadastroDePacienteDB; user id=sa; password=123456";
             SqlConnection conexao = new SqlConnection(strCon);
             conexao.Open();
             return conexao;

@@ -260,8 +260,8 @@ namespace VersaoWPF
 
         private void txtTelefone_KeyDown(object sender, KeyEventArgs e)
         {
-            
-            
+
+
             if (txtTelefone.Text.Length == 3)
             {
                 txtTelefone.Text = txtTelefone.Text + ")";
@@ -278,8 +278,8 @@ namespace VersaoWPF
         }
 
         private void txtTelefone_PreviewKeyDown(object sender, KeyEventArgs e)
-        {           
-           
+        {
+
             if (e.Key != Key.Back)
                 SupressaoDeKeyTele();
 
@@ -316,7 +316,28 @@ namespace VersaoWPF
 
 
         }
+        private void SupressaoDeKeysData()
+        {
+            char[] s = txtCPF.Text.ToCharArray();
+            string cpf = "";
 
+            for (int i = 0; i <= s.Length - 1; i++)
+            {
+                bool numeros = (s[i] == '1' || s[i] == '2' || s[i] == '3' || s[i] == '4' || s[i] == '5' || s[i] == '6' || s[i] == '7' || s[i] == '8' || s[i] == '9' || s[i] == '0');
+                bool pontuacoes = ((i == 2 && s[i] == '/') || (i == 5 && s[i] == '/'));
+
+                if (!(numeros || pontuacoes))
+                    s[i] = 'k';
+
+                cpf += s[i];
+
+            }
+
+            txtCPF.Text = cpf.Replace("k", "");
+
+
+
+        }
 
 
         private void SupressaoDeKeyTele()
@@ -343,10 +364,67 @@ namespace VersaoWPF
         }
 
 
+
+
         #endregion
+        #region Eventos txtData
+        string dataimput = "";
+        private void txtDataDeNascimento_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if ((e.OriginalSource as TextBox).Text.Length > 14)
+            {
+                (e.OriginalSource as TextBox).Text = dataimput;
+            }
+            else if (txtDataDeNascimento.Text != dataimput)
+            {
+                SupressaoDeKeysData(); ///sssss 
+                int count = 0;
+                if (dataimput.Length > 0 && txtDataDeNascimento.Text != "")
+                {
+                    while ((txtDataDeNascimento.Text[count] == dataimput[count]))
+                    {
+                        count++;
+                        if (count == txtDataDeNascimento.Text.Length || count == dataimput.Length)
+                            break;
+                    }
+                }
+                if (txtDataDeNascimento.Text.Length > dataimput.Length)
+                    count++;
 
 
-       
+                dataimput = "";
+                string texto = txtDataDeNascimento.Text;
+
+                texto = texto.Replace("/" ,"").Replace(@"\", "");
+
+                char[] s = texto.ToCharArray();
+
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if (dataimput.Length == 2)
+                    {
+                        dataimput += "/";
+                        count++;
+                    }
+                    if (dataimput.Length == 5)
+                    {
+                        dataimput += "/";
+                        count++;
+                    }
+                    
+                    dataimput += s[i];
+
+                }
+
+
+
+                txtDataDeNascimento.Text = dataimput;
+
+
+                txtDataDeNascimento.CaretIndex = count;
+            }
+        }
+        #endregion
     }
 }
 
