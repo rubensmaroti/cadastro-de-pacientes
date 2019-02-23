@@ -17,6 +17,7 @@ using Biblioteca.DAOs;
 using Biblioteca;
 using Biblioteca.Metodos;
 using Biblioteca.VOs;
+using System.ComponentModel;
 
 namespace VersaoWPF
 {
@@ -28,6 +29,13 @@ namespace VersaoWPF
         public frPesquisa()
         {
             InitializeComponent();
+            VariaveisGlobais.NumerodeJaneas++;
+            this.Closing += new CancelEventHandler(YourWindow_Closing);
+        }
+
+        void YourWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            VariaveisGlobais.NumerodeJaneas--;
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,6 +74,11 @@ namespace VersaoWPF
                 this.Close();
 
             }
+        }
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

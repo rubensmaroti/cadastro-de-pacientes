@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace VersaoWPF
 {
     /// <summary>
@@ -23,14 +25,23 @@ namespace VersaoWPF
         public MainWindow()
         {
             InitializeComponent();
+            VariaveisGlobais.NumerodeJaneas++;
         }
 
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
         {
-            frCadastro frCadastro = new frCadastro();
-            this.Hide();
-            frCadastro.Show();
-            this.Show();
+            try
+            {
+                this.Hide();
+                frCadastro frCadastro = new frCadastro();
+                frCadastro.ShowDialog();
+                while (VariaveisGlobais.NumerodeJaneas > 1)
+                    Thread.Sleep(100);
+            }
+            finally
+            {
+                this.Show();
+            }
         }
 
         private void BtnMinimizar_Click(object sender, RoutedEventArgs e)
@@ -45,14 +56,21 @@ namespace VersaoWPF
 
         private void btnSalvarImagens_Click(object sender, RoutedEventArgs e)
         {
+            try
 
-            frSalvarImagens salvarImagem = new frSalvarImagens();
-            this.Hide();
-            salvarImagem.ShowDialog();
-
-            if(!salvarImagem.IsActive)
+            {
+                this.Hide();
+                frSalvarImagens salvarImagem = new frSalvarImagens();
+                salvarImagem.ShowDialog();
+                while (VariaveisGlobais.NumerodeJaneas > 1)
+                    Thread.Sleep(100);
+            }
+            finally
+            {
                 this.Show();
-            
+            }
+
+
         }
     }
 }

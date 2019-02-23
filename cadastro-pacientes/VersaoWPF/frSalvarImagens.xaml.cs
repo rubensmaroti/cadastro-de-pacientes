@@ -27,8 +27,16 @@ namespace VersaoWPF
         public frSalvarImagens()
         {
             InitializeComponent();
+            VariaveisGlobais.NumerodeJaneas++;
+            this.Closing += new CancelEventHandler(YourWindow_Closing);
         }
-        
+
+        void YourWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            VariaveisGlobais.pacienteVO = new PacienteVO();
+            VariaveisGlobais.NumerodeJaneas--;
+        }
+
         private void BtnSalvarImagens_Click(object sender, RoutedEventArgs e)
         {
             if (lbImagens.Items.Count == 0)
@@ -174,16 +182,16 @@ namespace VersaoWPF
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
-            VariaveisGlobais.pacienteVO = new PacienteVO();          
-
+           
         }
 
         private void btnSair_Click(object sender, RoutedEventArgs e)
-        {
+        {          
             this.Close();
         }
+       
 
-        private void btnMinimizar_Click(object sender, RoutedEventArgs e)
+         private void btnMinimizar_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
@@ -202,5 +210,7 @@ namespace VersaoWPF
             else
                 MessageBox.Show("Selecione uma imagem na lista de imagens, para removela");
         }
+
+       
     }
 }

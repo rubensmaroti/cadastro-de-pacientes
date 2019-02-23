@@ -33,5 +33,6 @@ namespace Biblioteca.DAOs
             string sql = "delete Imagens where (CPF = @CPF and Caminho = @caminho)";
             MetodosGenericosDeDAO.ExecutaSQL(sql, CriaParametrosDaImagem(imagens));
         }
+        
     }
 }

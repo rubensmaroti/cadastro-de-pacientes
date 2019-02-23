@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Biblioteca.VOs;
 using Biblioteca.Exceptions;
 using Biblioteca.DAOs;
+using System.ComponentModel;
 
 namespace VersaoWPF
 {
@@ -25,6 +26,13 @@ namespace VersaoWPF
         public frCadastro()
         {
             InitializeComponent();
+            VariaveisGlobais.NumerodeJaneas++;
+            this.Closing += new CancelEventHandler(YourWindow_Closing);
+        }
+
+        void YourWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            VariaveisGlobais.NumerodeJaneas--;
         }
 
         private void TxtEmail_TextChanged(object sender, TextChangedEventArgs e)
@@ -403,7 +411,7 @@ namespace VersaoWPF
                 dataimput = "";
                 string texto = txtDataDeNascimento.Text;
 
-                texto = texto.Replace("/" ,"").Replace(@"\", "");
+                texto = texto.Replace("/", "").Replace(@"\", "");
 
                 char[] s = texto.ToCharArray();
 
@@ -419,7 +427,7 @@ namespace VersaoWPF
                         dataimput += "/";
                         count++;
                     }
-                    
+
                     dataimput += s[i];
 
                 }
@@ -433,6 +441,11 @@ namespace VersaoWPF
             }
         }
         #endregion
+
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
 
