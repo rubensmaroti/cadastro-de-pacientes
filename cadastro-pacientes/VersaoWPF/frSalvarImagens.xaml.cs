@@ -87,7 +87,7 @@ namespace VersaoWPF
 
         private void BtnSelecinar_Paciente(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            this.Hide();
             frPesquisa fr = new frPesquisa();
             fr.ShowDialog();
 
@@ -99,7 +99,7 @@ namespace VersaoWPF
 
                 txtNome.Text = VariaveisGlobais.pacienteVO.Nome;
             }
-            this.Show();
+            this.Activate();
         }
 
         private void btnSelecionarImagem_Clik(object sender, RoutedEventArgs e)

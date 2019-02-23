@@ -29,7 +29,7 @@ namespace VersaoWPF
             VariaveisGlobais.NumerodeJaneas++;
             this.Closing += new CancelEventHandler(YourWindow_Closing);
         }
-
+        
         void YourWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             VariaveisGlobais.NumerodeJaneas--;
@@ -334,7 +334,7 @@ namespace VersaoWPF
         }
         private void SupressaoDeKeysData()
         {
-            char[] s = txtCPF.Text.ToCharArray();
+            char[] s = txtDataDeNascimento.Text.ToCharArray();
             string cpf = "";
 
             for (int i = 0; i <= s.Length - 1; i++)
@@ -349,7 +349,7 @@ namespace VersaoWPF
 
             }
 
-            txtCPF.Text = cpf.Replace("k", "");
+            txtDataDeNascimento.Text = cpf.Replace("k", "");
 
 
 

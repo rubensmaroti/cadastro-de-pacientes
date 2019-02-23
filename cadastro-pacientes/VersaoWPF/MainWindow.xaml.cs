@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -26,7 +27,10 @@ namespace VersaoWPF
         {
             InitializeComponent();
             VariaveisGlobais.NumerodeJaneas++;
+            BackgroundWorker worker = new BackgroundWorker();          
+
         }
+               
 
         private void BtnCadastrar_Click(object sender, RoutedEventArgs e)
         {
@@ -36,7 +40,10 @@ namespace VersaoWPF
                 frCadastro frCadastro = new frCadastro();
                 frCadastro.ShowDialog();
                 while (VariaveisGlobais.NumerodeJaneas > 1)
+                {
+                    frCadastro.ShowDialog();
                     Thread.Sleep(100);
+                }
             }
             finally
             {
@@ -63,7 +70,10 @@ namespace VersaoWPF
                 frSalvarImagens salvarImagem = new frSalvarImagens();
                 salvarImagem.ShowDialog();
                 while (VariaveisGlobais.NumerodeJaneas > 1)
+                {
+                    salvarImagem.ShowDialog();
                     Thread.Sleep(100);
+                }
             }
             finally
             {
