@@ -13,7 +13,7 @@ namespace Biblioteca.Metodos
     public static class Metodos
     {
 
-        public static PacienteVO MontaVO(DataRow registro)
+        public static PacienteVO MontaVOPaciente(DataRow registro)
         {
             PacienteVO paciente = new PacienteVO();
             paciente.PacienteCPF = registro["CPF"].ToString();
@@ -24,6 +24,20 @@ namespace Biblioteca.Metodos
             paciente.Telefone = registro["Telefone"].ToString();
             return paciente;
         }
-
+        public static DataTable ExecutaSelect(string sql, SqlParameter[] parametros)
+        {
+            using (SqlConnection conexao = ConexaoBD.GetConexao())
+            {
+                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conexao))
+                {
+                    if (parametros != null)
+                        adapter.SelectCommand.Parameters.AddRange(parametros);
+                    DataTable tabelaTemp = new DataTable();
+                    adapter.Fill(tabelaTemp);
+                    conexao.Close();
+                    return tabelaTemp;
+                }
+            }
+        }
     }
 }

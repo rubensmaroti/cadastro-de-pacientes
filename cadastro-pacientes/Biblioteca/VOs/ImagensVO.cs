@@ -14,50 +14,76 @@ namespace Biblioteca.VOs
     public class ImagensVO
     {
         private string caminho;
-        private string pacienteCPF;
+        private PacienteVO paciente;
+        private OpenFileDialog file = new OpenFileDialog();
+
+
+
+        public ImagensVO(string caminho, PacienteVO paciente)
+        {
+            this.caminho = caminho;
+            this.paciente = paciente;
+        }
+
+        public ImagensVO(PacienteVO paciente, OpenFileDialog file)
+        {
+            if (string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(file.FileName)))
+            {
+                throw ValidacaoException.ImagemValidaco;
+            }
+            else if (paciente == null || string.IsNullOrEmpty(paciente.PacienteCPF))
+            {
+                throw new Exception("O diretório da imagem será uma pasta nomeada com o cpf do paciente por favor,informe um paciente ");
+            }
+            else
+            {
+                this.paciente = paciente;
+                this.File = file;
+                caminho = System.IO.Path.GetFileName(file.FileName);
+            }
+
+
+        }
+
 
         public string Caminho
         {
             get => caminho;
-            set => caminho = value;
+            private set => caminho = value;
         }
+        public OpenFileDialog File { get => file; set => file = value; }
+        public PacienteVO Paciente { get => paciente; set => paciente = value; }
 
-        public string PacienteCPF
+        public void SalvarImagem()
         {
-            get => pacienteCPF;
-            set => pacienteCPF = value;
-        }
-
-        public void SalvarImagem(OpenFileDialog openFileDialog)
-        {
-            if (string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(openFileDialog.FileName)))
-            {
-                throw ValidacaoException.ImagemValidaco;
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(File.FileName)))
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
+                string pastaImagens = path + @"..\..\Registros\Imagens\" + paciente.PacienteCPF;
 
-                string pastaImagens = path + @"..\..\Registros\Imagens\" + PacienteCPF;
                 if (Directory.Exists(pastaImagens) == false)
                     Directory.CreateDirectory(pastaImagens);
 
+                System.IO.File.Copy(File.FileName, pastaImagens+@"\"+ caminho, false);
 
-
-                if (string.IsNullOrEmpty(PacienteCPF))
-                    throw new Exception("O diretório da imagem será uma pasta nomeada com o cpf do paciente por favor o preencha.");
-
-                File.Copy(openFileDialog.FileName, (pastaImagens + @"\" + pacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName)), false);
-
-                Caminho = PacienteCPF + System.IO.Path.GetFileName(openFileDialog.FileName);
             }
-
+            else
+                throw new Exception("Arquivo não encontrado");
 
         }
 
-        private void SetImageCPFfromPacienteVO(PacienteVO paciente)
+
+
+
+        public override string ToString()
         {
-            PacienteCPF = paciente.PacienteCPF;
+            if (paciente == null || string.IsNullOrEmpty(paciente.PacienteCPF))
+                return base.ToString();
+            return paciente.PacienteCPF + " - " + Caminho.Replace(paciente.PacienteCPF, "").Replace(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Registros\Imagens\", "");
         }
+
+
+
+
     }
 }

@@ -29,7 +29,7 @@ namespace VersaoWPF
         {
             frCadastro frCadastro = new frCadastro();
             this.Hide();
-            frCadastro.ShowDialog();
+            frCadastro.Show();
             this.Show();
         }
 
@@ -45,10 +45,14 @@ namespace VersaoWPF
 
         private void btnSalvarImagens_Click(object sender, RoutedEventArgs e)
         {
+
             frSalvarImagens salvarImagem = new frSalvarImagens();
             this.Hide();
             salvarImagem.ShowDialog();
-            this.Show();
+
+            if(!salvarImagem.IsActive)
+                this.Show();
+            
         }
     }
 }

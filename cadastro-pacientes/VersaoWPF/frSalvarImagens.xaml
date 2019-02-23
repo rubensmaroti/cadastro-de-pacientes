@@ -6,9 +6,12 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:VersaoWPF"
         mc:Ignorable="d"
-        Title="frCadastro" Height="460.909" Width="678.182" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent">
+        Title="frCadastro" Height="460.909" Width="678.182" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Unloaded="Window_Unloaded">
     <Grid Visibility="Visible">
         <Grid  Name="gridMain" Visibility="Visible" >
+
+
+
 
             <Rectangle>
                 <Rectangle.Fill>
@@ -19,45 +22,59 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
+
             <Rectangle Height="294" Fill="White" VerticalAlignment="Bottom" Margin="10,0,10,93">
                 <Rectangle.Effect>
                     <DropShadowEffect Direction="0" Color="#FF740404" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
                 </Rectangle.Effect>
             </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="63" Margin="22,165,0,0" VerticalAlignment="Top" Width="167" Fill="#FFD2F1FD"/>
             <Grid Margin="10,143,10,93"/>
-            <Label Content=" Salvar Imagens " HorizontalAlignment="Left" Margin="269,74,0,0" VerticalAlignment="Top" Width="155" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
-            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="612,0,33,429" Height="32" VerticalAlignment="Bottom">
+            <Label Content=" Salvar Imagens " HorizontalAlignment="Left" Margin="248,74,0,0" VerticalAlignment="Top" Width="155" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
+            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="612,0,33,429" Height="32" VerticalAlignment="Bottom" Click="btnMinimizar_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Assets/delete.png"/>
                 </Button.Background>
 
             </Button>
-            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="645,0,0,429" Height="Auto">
+            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="645,0,0,429" Height="Auto" Click="btnSair_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="Assets/wrong.png"/>
                 </Button.Background>
 
             </Button>
-            <Image Margin="10,10,548,332" Source="Assets/hospital.png" Stretch="Fill"/>
-            <Button x:Name="btnCadastrar" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="183,0,211,41" Content="SALVAR IMAGENS" Background="#FF2C6AD8" Click="btnCadastrar_Click"  />
-            <Button x:Name="btnMinimizar_Copy" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="579,0,66,429" Height="32" VerticalAlignment="Bottom" >
+            <Image Margin="10,10,548,332" Source="Assets/hospital.png" Stretch="Fill" />
+            <Button x:Name="btnCadastrar" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="361,0,33,36" Content="SALVAR IMAGENS" Background="#FF2C6AD8" Click="BtnSalvarImagens_Click" RenderTransformOrigin="0.297,0.362"  />
+            <Button x:Name="btnInfo" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="579,0,66,429" Height="32" VerticalAlignment="Bottom" >
                 <Button.Background>
                     <ImageBrush ImageSource="Assets/info.png"/>
                 </Button.Background>
 
             </Button>
 
-            <Button Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,185" Content="SELECIONAR PACIENTE" Background="#FF2C6AD8" Click="Button_Click" />
-            <ListBox HorizontalAlignment="Left" Height="145" Margin="248,175,0,0" VerticalAlignment="Top" Width="174"/>
-            <Image Name="Imagem" HorizontalAlignment="Left" Height="215" Margin="436,143,0,0" VerticalAlignment="Top" Width="209"/>
-            <Button Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,148" Content="SELECIONAR IMAGEM" Background="#FF2C6AD8" />
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="81,175,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.923,-0.126" IsReadOnly="True"/>
-            <TextBox HorizontalAlignment="Left" Height="23" Margin="81,203,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.759,0.516" IsReadOnly="True"/>
+            <Button Name="btnSelePaciente" Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,185" Content="SELECIONAR PACIENTE" Background="#FF2C6AD8" Click="BtnSelecinar_Paciente" />
+
+            <Rectangle Fill="#FFD2F1FD" HorizontalAlignment="Left" Height="145" Margin="248,175,0,0" VerticalAlignment="Top" Width="174"/>
+            <ListBox Name="lbImagens" HorizontalAlignment="Left" Height="145" Margin="248,175,0,0" VerticalAlignment="Top" Width="174" Foreground="#FF01142B" SelectionChanged="lbImagens_SelectionChanged">
+                          
+            </ListBox>
+            
+
+
+            <Image Name="Imagem" HorizontalAlignment="Left" Height="215" Margin="436,143,0,0" VerticalAlignment="Top" Width="209" Source="Assets/hospital.png" Stretch="Fill"/>
+            <Button Name="btnSeleImagem" Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,148" Content="SELECIONAR IMAGEM" Background="#FF2C6AD8" Click="btnSelecionarImagem_Clik" />
+            <TextBox Name="txtCPF" HorizontalAlignment="Left" Height="23" Margin="81,175,0,0" TextWrapping="Wrap" Text="CPF do Paciente" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.923,-0.126" IsReadOnly="True"/>
+            <TextBox  Name="txtNome" HorizontalAlignment="Left" Height="23" Margin="81,203,0,0" TextWrapping="Wrap" Text="Nome do Paciente " VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.759,0.516" IsReadOnly="True"/>
             <Label Content="CPF:" HorizontalAlignment="Left" Margin="22,172,0,0" VerticalAlignment="Top" Foreground="Black"/>
             <Label Content="NOME:" HorizontalAlignment="Left" Margin="22,202,0,0" VerticalAlignment="Top" Foreground="Black"/>
-            <Button Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,111" Content="REMOVER IMAGEM" Background="#FF2C6AD8" />
+            <Button Name="btnRemoverImagem" Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,111" Content="REMOVER IMAGEM" Background="#FF2C6AD8" Click="btnRemoverImagem_Click" />
+            <ProgressBar Name="pbWork" HorizontalAlignment="Left" Height="32" Margin="22,393,0,0" VerticalAlignment="Top" Width="309" BorderBrush="#FF01080C" ValueChanged="ProgressBar_ValueChanged" Minimum="0" Maximum="100" Value="0"/>
+
+
+
         </Grid>
+        <Label Content="Paciente Atual" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,143,0,0" Foreground="Black" Width="97"/>
 
     </Grid>
 
-    </Window>
+</Window>

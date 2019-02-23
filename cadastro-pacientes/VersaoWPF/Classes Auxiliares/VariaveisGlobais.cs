@@ -13,6 +13,7 @@ namespace VersaoWPF
     {
         static public List<PacienteVO> Pacientes = new List<PacienteVO>();
         static public List<ImagensVO> Imagens = new List<ImagensVO>();
+        static public PacienteVO pacienteVO = new PacienteVO();
 
     }
 }

@@ -16,6 +16,7 @@ using System.Data;
 using Biblioteca.DAOs;
 using Biblioteca;
 using Biblioteca.Metodos;
+using Biblioteca.VOs;
 
 namespace VersaoWPF
 {
@@ -41,37 +42,30 @@ namespace VersaoWPF
 
         private void btnMinimizarClick(object sender, RoutedEventArgs e)
         {
-           this.WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DataTable data = ExecutaSelect("Select * from Paciente ", null);
+            
+            DataTable data = Metodos.ExecutaSelect("Select * from Paciente ", null);
 
             foreach (var item in data.Rows)
             {
-                datagrid.Items.Add(Metodos.MontaVO(item as DataRow));
-                
-                
-
+                datagrid.Items.Add(Metodos.MontaVOPaciente(item as DataRow));
             }
 
-            
         }
-        public static DataTable ExecutaSelect(string sql, SqlParameter[] parametros)
+
+        private void btnSelecionar_Click(object sender, RoutedEventArgs e)
         {
-            using (SqlConnection conexao = ConexaoBD.GetConexao())
+            if(datagrid.SelectedItem != null)
             {
-                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conexao))
-                {
-                    if (parametros != null)
-                        adapter.SelectCommand.Parameters.AddRange(parametros);
-                    DataTable tabelaTemp = new DataTable();
-                    adapter.Fill(tabelaTemp);
-                    conexao.Close();
-                    return tabelaTemp;
-                }
+                VariaveisGlobais.pacienteVO = datagrid.SelectedItem as PacienteVO;
+                // inserir uma mensagem de confirmação
+                this.Close();
+
             }
         }
-}
+    }
 }

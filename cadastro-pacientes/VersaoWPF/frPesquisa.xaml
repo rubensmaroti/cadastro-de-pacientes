@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:VersaoWPF"
+        
         mc:Ignorable="d"
         Title="frCadastro" Height="632" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded">
     <Window.Resources>
-        <local:ConverterCPF x:Key="ConverterCPF"/>
+        <local:ConverterCPF x:Key="ConverterCPF"/>     
     </Window.Resources>
+
     <Grid Visibility="Visible">
         <Grid  Name="gridMain" Visibility="Visible" >
 
@@ -22,7 +24,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle Height="521" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18,51,14,28" RenderTransformOrigin="0.5,0.5" Width="418" >
+            <Rectangle Height="531" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18,67,14,34" RenderTransformOrigin="0.5,0.5" Width="418" >
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -68,13 +70,18 @@
             <Image  Source="Assets/hospital.png" HorizontalAlignment="Left" Height="92" Margin="24,10,0,0" VerticalAlignment="Top" Width="96"/>
 
         </Grid>
-        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="457" VerticalAlignment="Top" Width="405" Margin="25,111,0,0" SelectionChanged="DataGrid_SelectionChanged" Background="#FF1D8191">
+        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="457" VerticalAlignment="Top" Width="405" Margin="25,111,0,0" SelectionChanged="DataGrid_SelectionChanged" Background="#FF1D8191" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single" HorizontalGridLinesBrush="#FF008EF0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="CPF" Binding="{Binding PacienteCPF, Converter={StaticResource ConverterCPF}}" IsReadOnly="True" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" IsReadOnly="True"></DataGridTextColumn>
-                
+                <DataGridTextColumn Header="Sexo" Binding="{Binding Sexo}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Data de Nascimento" Binding="{Binding DataNasc, StringFormat=\{0:dd/MM/yyyy\}}" IsReadOnly="True"></DataGridTextColumn>
+
+
             </DataGrid.Columns>
         </DataGrid>
+
+        <Button x:Name="btnSelecionar" Width="273" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="92,0,85,10" Content="SELECIONAR PACIENTES" Background="#FF2C6AD8" Click="btnSelecionar_Click"  />
 
         <Button x:Name="btnInfo" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="346,0,73,588" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>

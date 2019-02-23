@@ -11,7 +11,7 @@ namespace Biblioteca.VOs
 {
     public class PacienteVO
     {
-        private Tipo tipo = Tipo.Paciente;
+        
         private string pacienteCPF;
         private string nome;
         private char sexo;
@@ -58,7 +58,7 @@ namespace Biblioteca.VOs
 
         private string VerificaCPF(string cpf)
         {
-            int a;
+            
 
             cpf = cpf.Replace(".", "").Replace(",", "").Replace("-", "");
            

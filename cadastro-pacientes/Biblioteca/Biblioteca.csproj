@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAOs\ConexaoBD.cs" />
+    <Compile Include="DAOs\ImagemDAO.cs" />
     <Compile Include="DAOs\PacienteDAO.cs" />
     <Compile Include="Enumeradores\Enumeradores.cs" />
     <Compile Include="Exceptions\ValidacaoException.cs" />

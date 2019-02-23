@@ -73,6 +73,14 @@ namespace VersaoWPF
                 paciente.Telefone = txtTelefone.Text;
 
                 PacienteDAO.Insert(paciente);
+                MessageBox.Show("Cadastro Efetuado");
+
+                txtCPF.Clear();
+                txtDataDeNascimento.Clear();
+                txtEmail.Clear();
+                txtTelefone.Clear();
+                txtNome.Clear();
+                cbSexo.SelectedIndex = -1;
 
             }
             catch (ValidacaoException x)

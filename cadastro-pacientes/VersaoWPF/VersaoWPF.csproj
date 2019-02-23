@@ -81,7 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ConverterCPF.cs" />
+    <Compile Include="Classes Auxiliares\ConverterCPF.cs" />
     <Compile Include="frCadastro.xaml.cs">
       <DependentUpon>frCadastro.xaml</DependentUpon>
     </Compile>
