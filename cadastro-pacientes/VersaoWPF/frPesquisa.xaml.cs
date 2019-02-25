@@ -26,6 +26,8 @@ namespace VersaoWPF
     /// </summary>
     public partial class frPesquisa : Window
     {
+        List<PacienteVO> pacientes = new List<PacienteVO>();
+
         public frPesquisa()
         {
             InitializeComponent();
@@ -55,13 +57,18 @@ namespace VersaoWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            datagrid.ItemsSource = null;
+
             DataTable data = Metodos.ExecutaSelect("Select * from Paciente ", null);
 
             foreach (var item in data.Rows)
             {
-                datagrid.Items.Add(Metodos.MontaVOPaciente(item as DataRow));
+                PacienteVO x = new PacienteVO();
+                x = Metodos.MontaVOPaciente(item as DataRow);
+                pacientes.Add(x);
+               
             }
+            datagrid.ItemsSource = pacientes;
 
         }
 
@@ -74,11 +81,102 @@ namespace VersaoWPF
                 this.Close();
 
             }
+            else
+            {
+                MessageBox.Show("Por Favor Selecione um Paciente na Tabela Acima");
+            }
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
            
         }
+
+        private void btnPesquisar_Click(object sender, RoutedEventArgs e)
+        {
+
+            datagrid.ItemsSource = null;
+
+            if (!string.IsNullOrEmpty(txtCPF.Text) && !string.IsNullOrEmpty(txtNome.Text))
+            {
+
+                var k =
+                from p in pacientes
+                where (p.PacienteCPF.ToLower().Contains(txtCPF.Text.ToLower()) && p.Nome.ToLower().Contains(txtNome.Text.ToLower()))
+                select p;
+
+                k = k.OrderBy(p => p.Nome);
+
+                datagrid.ItemsSource = k;
+            }
+            else if (!string.IsNullOrEmpty(txtCPF.Text))
+            {
+
+               var k =
+               from p in pacientes
+                where (p.PacienteCPF.ToLower().Contains(txtCPF.Text.ToLower()))
+                select p;
+
+                k = k.OrderBy(p => p.Nome);
+
+                datagrid.ItemsSource = k;
+            }
+            else if (!string.IsNullOrEmpty(txtNome.Text))
+            {
+
+                
+
+
+                var k =
+                    from p in pacientes
+                    where (p.Nome.ToLower().Contains(txtNome.Text.ToLower()))
+                    select p;
+
+               
+
+                datagrid.ItemsSource = k;
+            }
+            else
+                datagrid.ItemsSource = pacientes;
+
+
+            /*
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += worker_DoWork;
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+            */
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            txtNome.IsEnabled = true;
+            datagrid.IsEnabled = true;
+            txtCPF.IsEnabled = true;
+            btnSair.IsEnabled = true;
+            btnPesquisar.IsEnabled = true;
+            btnSelecionar.IsEnabled = true;
+            btnInfo.IsEnabled = true;
+
+            MessageBox.Show("Pesquisa Efetuada com sucesso");
+        }
+        /*
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(txtNome.Text) && !string.IsNullOrEmpty(txtCPF.Text))
+            {               
+
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@CPF", txtCPF.Text);
+                parameters[1] = new SqlParameter("@Nome", txtNome.Text);
+
+                DataTable data = Metodos.ExecutaSelect("Select * from Paciente  where CPF = @CPF and Nome=@Nome", parameters);
+                
+
+
+            }
+        }
+        */
     }
 }

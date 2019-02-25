@@ -79,9 +79,12 @@ namespace VersaoWPF
             {
                 lbImagens.Items.RemoveAt(0);
                 contador--;
-            }           
-            if(lbImagens.Items.Count == 0)
+            }
+            if (lbImagens.Items.Count == 0)
+            {
                 MessageBox.Show("Imagens Salvas Com sucesso", "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+                Imagem.Source = VariaveisGlobais.image;
+            }
 
         }
 

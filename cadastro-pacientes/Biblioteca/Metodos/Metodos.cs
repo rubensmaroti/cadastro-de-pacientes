@@ -22,8 +22,28 @@ namespace Biblioteca.Metodos
             paciente.Email = registro["Email"].ToString();
             paciente.DataNasc = Convert.ToDateTime(registro["DtNascimento"]);
             paciente.Telefone = registro["Telefone"].ToString();
-            return paciente;
+
+            if (paciente.DataNasc != null && paciente.Email != null && paciente.Nome != null && paciente.PacienteCPF != null && paciente.Sexo.ToString() != null && paciente.Telefone != null)
+                return paciente;
+            else
+               throw new Exception("Erro ao carregar Paciente ");
         }
+        public static ImagensVO MontaVOImagem(DataRow registro)
+        {
+           SqlParameter[] sqlParameter =  new SqlParameter[1];
+
+            sqlParameter[0] = new SqlParameter("@CPF", registro["CPF"].ToString());
+            PacienteVO paciente = MontaVOPaciente(ExecutaSelect("Select * from Pacientes where CPF = @CPF", sqlParameter).Rows[0]);
+
+            ImagensVO imagens = new ImagensVO(registro["Caminho"].ToString(), paciente);
+            if (imagens.Caminho != null && imagens.Paciente.PacienteCPF != null)
+            {
+                return imagens;
+            }
+            else throw new Exception("Erro ao carregar Imagem ");
+        }
+
+
         public static DataTable ExecutaSelect(string sql, SqlParameter[] parametros)
         {
             using (SqlConnection conexao = ConexaoBD.GetConexao())
