@@ -94,11 +94,11 @@ namespace VersaoWPF
             frPesquisa fr = new frPesquisa();
             fr.ShowDialog();
 
-            if (VariaveisGlobais.pacienteVO != null && !string.IsNullOrEmpty(VariaveisGlobais.pacienteVO.PacienteCPF))
+            if (VariaveisGlobais.pacienteVO != null && !string.IsNullOrEmpty(VariaveisGlobais.pacienteVO.CPF))
             {
 
-                txtCPF.Text = VariaveisGlobais.pacienteVO.PacienteCPF.Substring(0, 3) + "." + VariaveisGlobais.pacienteVO.PacienteCPF.Substring(3, 3) + "." +
-                    VariaveisGlobais.pacienteVO.PacienteCPF.Substring(6, 3) + "-" + VariaveisGlobais.pacienteVO.PacienteCPF.Remove(0, 9);
+                txtCPF.Text = VariaveisGlobais.pacienteVO.CPF.Substring(0, 3) + "." + VariaveisGlobais.pacienteVO.CPF.Substring(3, 3) + "." +
+                    VariaveisGlobais.pacienteVO.CPF.Substring(6, 3) + "-" + VariaveisGlobais.pacienteVO.CPF.Remove(0, 9);
 
                 txtNome.Text = VariaveisGlobais.pacienteVO.Nome;
             }
@@ -111,7 +111,7 @@ namespace VersaoWPF
             {
                 OpenFileDialog file = new OpenFileDialog();
 
-                file.Filter = "Imagens|*.jpg;*.bmp;*.gif;*.png";
+               
                 if (file.ShowDialog() == true)
                 {
                     ImagensVO imagens = new ImagensVO(VariaveisGlobais.pacienteVO, file);

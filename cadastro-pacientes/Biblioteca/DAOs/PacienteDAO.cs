@@ -14,7 +14,7 @@ namespace Biblioteca.DAOs
         {
             SqlParameter[] parameters = new SqlParameter[6];
 
-            parameters[0] = new SqlParameter("@CPF", paciente.PacienteCPF);
+            parameters[0] = new SqlParameter("@CPF", paciente.CPF);
             parameters[1] = new SqlParameter("@Nome", paciente.Nome);
             parameters[2] = new SqlParameter("@Sexo", paciente.Sexo.ToString());
             parameters[3] = new SqlParameter("@DtNascimento", paciente.DataNasc.ToShortDateString());

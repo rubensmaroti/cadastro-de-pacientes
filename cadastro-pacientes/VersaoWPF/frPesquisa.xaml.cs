@@ -32,10 +32,10 @@ namespace VersaoWPF
         {
             InitializeComponent();
             VariaveisGlobais.NumerodeJaneas++;
-            this.Closing += new CancelEventHandler(YourWindow_Closing);
+            this.Closing += new CancelEventHandler(Window_Closing);
         }
 
-        void YourWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             VariaveisGlobais.NumerodeJaneas--;
         }
@@ -97,24 +97,24 @@ namespace VersaoWPF
 
             datagrid.ItemsSource = null;
 
-            if (!string.IsNullOrEmpty(txtCPF.Text) && !string.IsNullOrEmpty(txtNome.Text))
+            if (!string.IsNullOrEmpty(txtCPF.Text.Replace(".", "").Replace("-", "")) && !string.IsNullOrEmpty(txtNome.Text))
             {
 
                 var k =
                 from p in pacientes
-                where (p.PacienteCPF.ToLower().Contains(txtCPF.Text.ToLower()) && p.Nome.ToLower().Contains(txtNome.Text.ToLower()))
+                where (p.CPF.ToLower().Contains(txtCPF.Text.ToLower().Replace(".", "").Replace("-", "")) && p.Nome.ToLower().Contains(txtNome.Text.ToLower()))
                 select p;
 
                 k = k.OrderBy(p => p.Nome);
 
                 datagrid.ItemsSource = k;
             }
-            else if (!string.IsNullOrEmpty(txtCPF.Text))
+            else if (!string.IsNullOrEmpty(txtCPF.Text.Replace(".", "").Replace("-", "")))
             {
 
                var k =
                from p in pacientes
-                where (p.PacienteCPF.ToLower().Contains(txtCPF.Text.ToLower()))
+                where (p.CPF.ToLower().Contains(txtCPF.Text.ToLower().Replace(".", "").Replace("-", "")))
                 select p;
 
                 k = k.OrderBy(p => p.Nome);
@@ -149,6 +149,7 @@ namespace VersaoWPF
             */
         }
 
+        /*
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             txtNome.IsEnabled = true;
@@ -161,7 +162,7 @@ namespace VersaoWPF
 
             MessageBox.Show("Pesquisa Efetuada com sucesso");
         }
-        /*
+        
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             if(!string.IsNullOrEmpty(txtNome.Text) && !string.IsNullOrEmpty(txtCPF.Text))

@@ -67,7 +67,7 @@ namespace VersaoWPF
             {
                 PacienteVO paciente = new PacienteVO();
 
-                paciente.PacienteCPF = txtCPF.Text;
+                paciente.CPF = txtCPF.Text;
                 paciente.Nome = txtNome.Text;
                 if (cbSexo.SelectedItem as string == "Masculino")
                     paciente.Sexo = 'M';
@@ -443,6 +443,11 @@ namespace VersaoWPF
         #endregion
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cbSexo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

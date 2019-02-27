@@ -50,7 +50,7 @@ namespace cadastro_pacientes
             {
                 PacienteVO paciente = new PacienteVO();
 
-                paciente.PacienteCPF = mskdtxtCPF.Text;
+                paciente.CPF = mskdtxtCPF.Text;
                 paciente.Nome = txtNome.Text;
                 if (cbSexo.SelectedItem as string == "Masculino")
                     paciente.Sexo = 'M';

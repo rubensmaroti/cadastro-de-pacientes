@@ -33,7 +33,7 @@
             <StackPanel VerticalAlignment="Bottom" Margin="10,0,10,79" Height="124">
                 <Button x:Name="btnCadastrar" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Content="CADASTRAR NOVO PACIENTE" Background="#FF2C6AD8" Click="BtnCadastrar_Click"  />
                 <Button x:Name="btnSalvarImagens" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Content="SALVAR IMAGENS DO PACIENTE" Background="#FF2C6AD8" Click="btnSalvarImagens_Click"  />
-                <Button x:Name="btnEditarRegistros" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Content="EDITAR REGISTROS" Background="#FF2C6AD8"  />
+                <Button x:Name="btnEditarRegistros" Width="284" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,10,10" Content="EDITAR REGISTROS" Background="#FF2C6AD8" Click="btnEditarRegistros_Click"  />
             </StackPanel>
             <Label Content=" Controle de Pacientes " HorizontalAlignment="Left" Margin="50,10,0,0" VerticalAlignment="Top" Width="221" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
         </Grid>

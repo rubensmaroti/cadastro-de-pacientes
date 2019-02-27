@@ -16,14 +16,14 @@ namespace Biblioteca.Metodos
         public static PacienteVO MontaVOPaciente(DataRow registro)
         {
             PacienteVO paciente = new PacienteVO();
-            paciente.PacienteCPF = registro["CPF"].ToString();
+            paciente.CPF = registro["CPF"].ToString();
             paciente.Nome = registro["Nome"].ToString();
             paciente.Sexo = registro["Sexo"].ToString()[0];
             paciente.Email = registro["Email"].ToString();
             paciente.DataNasc = Convert.ToDateTime(registro["DtNascimento"]);
             paciente.Telefone = registro["Telefone"].ToString();
 
-            if (paciente.DataNasc != null && paciente.Email != null && paciente.Nome != null && paciente.PacienteCPF != null && paciente.Sexo.ToString() != null && paciente.Telefone != null)
+            if (paciente.DataNasc != null && paciente.Email != null && paciente.Nome != null && paciente.CPF != null && paciente.Sexo.ToString() != null && paciente.Telefone != null)
                 return paciente;
             else
                throw new Exception("Erro ao carregar Paciente ");
@@ -33,10 +33,10 @@ namespace Biblioteca.Metodos
            SqlParameter[] sqlParameter =  new SqlParameter[1];
 
             sqlParameter[0] = new SqlParameter("@CPF", registro["CPF"].ToString());
-            PacienteVO paciente = MontaVOPaciente(ExecutaSelect("Select * from Pacientes where CPF = @CPF", sqlParameter).Rows[0]);
+            PacienteVO paciente = MontaVOPaciente(ExecutaSelect("Select * from Paciente where CPF = @CPF", sqlParameter).Rows[0]);
 
             ImagensVO imagens = new ImagensVO(registro["Caminho"].ToString(), paciente);
-            if (imagens.Caminho != null && imagens.Paciente.PacienteCPF != null)
+            if (imagens.Caminho != null && imagens.Paciente.CPF != null)
             {
                 return imagens;
             }

@@ -1,5 +1,5 @@
-﻿<Window x:Class="VersaoWPF.frPesquisa"
-          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="VersaoWPF.frRegistros"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:VersaoWPF"
         
         mc:Ignorable="d"
-        Title="frCadastro" Height="671" Width="450" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded" Unloaded="Window_Unloaded">
+        Title="frCadastro" Height="671" Width="519" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded_1" >
     <Window.Resources>
         <local:ConverterCPF x:Key="ConverterCPF"/>
     </Window.Resources>
@@ -24,7 +24,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle Height="558" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="18,60,14,53" RenderTransformOrigin="0.5,0.5" Width="418" >
+            <Rectangle Height="558" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="11,60,7,53" RenderTransformOrigin="0.5,0.5" Width="501" >
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -38,9 +38,9 @@
                 </Rectangle.Effect>
             </Rectangle>
 
-            <Label Content=" Seleção de Paciente " HorizontalAlignment="Left" Margin="125,59,0,0" VerticalAlignment="Top" Width="201" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43"/>
-            <Rectangle Fill="AliceBlue" HorizontalAlignment="Left" Height="74" Margin="35,107,0,0" VerticalAlignment="Top" Width="388"/>
-            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="376,0,43,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnMinimizarClick">
+            <Label Content=" Registros " HorizontalAlignment="Right" Margin="0,0,203,569" VerticalAlignment="Bottom" Width="111" Foreground="#DD000000" FontFamily="Times New Roman" FontSize="22" Height="43" RenderTransformOrigin="0.333,0.558"/>
+            <Rectangle Fill="AliceBlue" HorizontalAlignment="Left" Height="74" Margin="35,107,0,0" VerticalAlignment="Top" Width="460"/>
+            <Button x:Name="btnMinimizar" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="441,0,0,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnMinimizarClick" HorizontalAlignment="Left" Width="31">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -54,7 +54,7 @@
                 </Button.Background>
 
             </Button>
-            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="409,0,10,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnSair_Click">
+            <Button x:Name="btnSair" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="476,0,0,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Click="btnSair_Click" HorizontalAlignment="Left" Width="31">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -68,24 +68,26 @@
                 </Button.Background>
 
             </Button>
-            <Image  Source="Assets/hospital.png" HorizontalAlignment="Left" Height="92" Margin="24,10,0,0" VerticalAlignment="Top" Width="96"/>
-            <TextBox x:Name="txtNome" materialDesign:HintAssist.Hint="NOME" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="35,107,306,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
-            <TextBox x:Name="txtCPF" materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="149,107,192,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+            <Image  Source="Assets/hospital.png" Height="97" Margin="0,0,408,567" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="111"/>
+            <TextBox x:Name="txtNome" materialDesign:HintAssist.Hint="NOME" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="125,109,294,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+            <TextBox x:Name="txtCPF" materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="230,107,192,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+            <ComboBox x:Name="cbTipo" materialDesign:HintAssist.Hint="TIPO" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="LightBlue" Margin="35,112,399,0" Height="33" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
 
 
         </Grid>
-        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="405" Margin="25,161,0,0" SelectionChanged="DataGrid_SelectionChanged" Background="#FF1D8191" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single" HorizontalGridLinesBrush="#FF008EF0">
+        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="476" Margin="25,161,0,0" Background="#FF1D8191" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single" HorizontalGridLinesBrush="#FF008EF0">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="CPF" Binding="{Binding CPF, Converter={StaticResource ConverterCPF}}" IsReadOnly="True" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Sexo" Binding="{Binding Sexo}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Data de Nascimento" Binding="{Binding DataNasc, StringFormat=\{0:dd/MM/yyyy\}}" IsReadOnly="True"></DataGridTextColumn>
+
+
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="btnSelecionar" Width="273" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="92,0,85,10" Content="SELECIONAR PACIENTE" Background="#FF2C6AD8" Click="btnSelecionar_Click"  />
+        <Button x:Name="btnDeletar" Width="273" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="92,0,85,10" Content="DELETAR REGISTRO" Background="#FF2C6AD8" Click="btnDeletar_Click" />
 
-        <Button x:Name="btnInfo" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="343,0,76,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+        <Button x:Name="btnInfo" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="407,0,0,629" Height="32" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" Width="31">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="-1"/>
@@ -99,7 +101,7 @@
             </Button.Background>
 
         </Button>
-        <Button x:Name="btnPesquisar" Width="142" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="279,0,29,530" Content="PESQUISAR" Background="#FF2C6AD8" Click="btnPesquisar_Click" Height="28"  />
+        <Button x:Name="btnPesquisar" Width="146" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="339,0,34,530" Content="PESQUISAR" Background="#FF2C6AD8" Click="btnPesquisar_Click" Height="28"  />
 
     </Grid>
 

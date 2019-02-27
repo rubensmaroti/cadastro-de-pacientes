@@ -9,26 +9,27 @@ using Biblioteca.Enumeradores;
 
 namespace Biblioteca.VOs
 {
-    public class PacienteVO
+    public class PacienteVO : Registro
     {
         
-        private string pacienteCPF;
-        private string nome;
+       public PacienteVO()
+        {
+            Tipo = Tipo.Paciente;
+        }
+
+        
         private char sexo;
         private DateTime dataNasc;
         private string email;
         private string telefone;
 
-        public string PacienteCPF
-        {
-            get => pacienteCPF;
-            set => pacienteCPF = VerificaCPF(value);
-        }
+        public override string CPF { get => base.CPF; set => base.CPF = VerificaCPF(value); }
 
-        public string Nome
+
+        public override string Nome
         {
-            get => nome;
-            set => nome = (string.IsNullOrWhiteSpace(value) || !value.Contains(' ')) ? throw ValidacaoException.NomeValidacao : value;
+            get => base.Nome;
+            set => base.Nome = (string.IsNullOrWhiteSpace(value) || !value.Contains(' ')) ? throw ValidacaoException.NomeValidacao : value;
         }
 
         public char Sexo

@@ -69,6 +69,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frRegistros.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frSalvarImagens.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +91,9 @@
     </Compile>
     <Compile Include="frPesquisa.xaml.cs">
       <DependentUpon>frPesquisa.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frRegistros.xaml.cs">
+      <DependentUpon>frRegistros.xaml</DependentUpon>
     </Compile>
     <Compile Include="frSalvarImagens.xaml.cs">
       <DependentUpon>frSalvarImagens.xaml</DependentUpon>
@@ -142,5 +149,9 @@
     <Resource Include="Assets\info.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Scripts\docscript.txt" />
+    <Content Include="Scripts\SQL.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

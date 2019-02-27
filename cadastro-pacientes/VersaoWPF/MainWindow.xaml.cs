@@ -82,5 +82,25 @@ namespace VersaoWPF
 
 
         }
+
+        private void btnEditarRegistros_Click(object sender, RoutedEventArgs e)
+        {
+            try
+
+            {
+                this.Hide();
+                frRegistros registros = new frRegistros();
+                registros.ShowDialog();
+                while (VariaveisGlobais.NumerodeJaneas > 1)
+                {
+                    registros.ShowDialog();
+                    Thread.Sleep(100);
+                }
+            }
+            finally
+            {
+                this.Show();
+            }
+        }
     }
 }

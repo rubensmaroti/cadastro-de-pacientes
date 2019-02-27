@@ -50,6 +50,7 @@
     <Compile Include="DAOs\MetodosGenericosDeDAO.cs" />
     <Compile Include="Metodos\Metodos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VOs\Registro.cs" />
     <Compile Include="VOs\ImagensVO.cs" />
     <Compile Include="VOs\PacienteVO.cs" />
   </ItemGroup>

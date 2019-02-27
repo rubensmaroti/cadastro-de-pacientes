@@ -11,18 +11,21 @@ using Biblioteca.Exceptions;
 
 namespace Biblioteca.VOs
 {
-    public class ImagensVO
+    public class ImagensVO : Registro
     {
-        private string caminho;
+        
         private PacienteVO paciente;
         private OpenFileDialog file = new OpenFileDialog();
 
 
 
+
         public ImagensVO(string caminho, PacienteVO paciente)
         {
-            this.caminho = caminho;
+            this.Nome = caminho;
             this.paciente = paciente;
+            this.CPF = paciente.CPF;
+            Tipo = Tipo.Imagem;
         }
 
         public ImagensVO(PacienteVO paciente, OpenFileDialog file)
@@ -31,26 +34,31 @@ namespace Biblioteca.VOs
             {
                 throw ValidacaoException.ImagemValidaco;
             }
-            else if (paciente == null || string.IsNullOrEmpty(paciente.PacienteCPF))
+            else if (paciente == null || string.IsNullOrEmpty(paciente.CPF))
             {
                 throw new Exception("O diretório da imagem será uma pasta nomeada com o cpf do paciente por favor,informe um paciente ");
             }
             else
             {
+                this.CPF = paciente.CPF;
                 this.paciente = paciente;
                 this.File = file;
-                caminho = System.IO.Path.GetFileName(file.FileName);
+                Nome = System.IO.Path.GetFileName(file.FileName);
+                Tipo = Tipo.Imagem;
+
             }
 
 
         }
 
+        
 
         public string Caminho
         {
-            get => caminho;
-            private set => caminho = value;
+            get => Nome;
+            private set => Nome = value;
         }
+
         public OpenFileDialog File { get => file; set => file = value; }
         public PacienteVO Paciente { get => paciente; set => paciente = value; }
 
@@ -59,12 +67,12 @@ namespace Biblioteca.VOs
             if (!string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(File.FileName)))
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
-                string pastaImagens = path + @"..\..\Registros\Imagens\" + paciente.PacienteCPF;
+                string pastaImagens = path + @"..\..\Registros\Imagens\" + paciente.CPF;
 
                 if (Directory.Exists(pastaImagens) == false)
                     Directory.CreateDirectory(pastaImagens);
 
-                System.IO.File.Copy(File.FileName, pastaImagens+@"\"+ caminho, false);
+                System.IO.File.Copy(File.FileName, pastaImagens+@"\"+ Nome, false);
 
             }
             else
@@ -77,9 +85,9 @@ namespace Biblioteca.VOs
 
         public override string ToString()
         {
-            if (paciente == null || string.IsNullOrEmpty(paciente.PacienteCPF))
+            if (paciente == null || string.IsNullOrEmpty(paciente.CPF))
                 return base.ToString();
-            return paciente.PacienteCPF + " - " + Caminho.Replace(paciente.PacienteCPF, "").Replace(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Registros\Imagens\", "");
+            return paciente.CPF + " - " + Caminho.Replace(paciente.CPF, "").Replace(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Registros\Imagens\", "");
         }
 
 
