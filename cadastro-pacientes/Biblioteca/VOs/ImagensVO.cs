@@ -15,7 +15,7 @@ namespace Biblioteca.VOs
     {
         
         private PacienteVO paciente;
-        private OpenFileDialog file = new OpenFileDialog();
+        private FileInfo file;
 
 
 
@@ -28,9 +28,9 @@ namespace Biblioteca.VOs
             Tipo = Tipo.Imagem;
         }
 
-        public ImagensVO(PacienteVO paciente, OpenFileDialog file)
+        public ImagensVO(PacienteVO paciente, FileInfo file)
         {
-            if (string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(file.FileName)))
+            if (string.IsNullOrWhiteSpace(file.Name))
             {
                 throw ValidacaoException.ImagemValidaco;
             }
@@ -43,7 +43,7 @@ namespace Biblioteca.VOs
                 this.CPF = paciente.CPF;
                 this.paciente = paciente;
                 this.File = file;
-                Nome = System.IO.Path.GetFileName(file.FileName);
+                Nome = file.Name;
                 Tipo = Tipo.Imagem;
 
             }
@@ -59,12 +59,12 @@ namespace Biblioteca.VOs
             private set => Nome = value;
         }
 
-        public OpenFileDialog File { get => file; set => file = value; }
+        public FileInfo File { get => file; set => file = value; }
         public PacienteVO Paciente { get => paciente; set => paciente = value; }
 
         public void SalvarImagem()
         {
-            if (!string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(File.FileName)))
+            if (!string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(File.Name)))
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
                 string pastaImagens = path + @"..\..\Registros\Imagens\" + paciente.CPF;
@@ -72,7 +72,7 @@ namespace Biblioteca.VOs
                 if (Directory.Exists(pastaImagens) == false)
                     Directory.CreateDirectory(pastaImagens);
 
-                System.IO.File.Copy(File.FileName, pastaImagens+@"\"+ Nome, false);
+                System.IO.File.Copy(File.FullName, pastaImagens+@"\"+ Nome, false);
 
             }
             else

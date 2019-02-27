@@ -54,14 +54,10 @@
 
             <Button Name="btnSelePaciente" Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,185" Content="SELECIONAR PACIENTE" Background="#FF2C6AD8" Click="BtnSelecinar_Paciente" />
 
-            <Rectangle Fill="#FFD2F1FD" HorizontalAlignment="Left" Height="145" Margin="248,175,0,0" VerticalAlignment="Top" Width="174"/>
-            <ListBox Name="lbImagens" HorizontalAlignment="Left" Height="145" Margin="248,175,0,0" VerticalAlignment="Top" Width="174" Foreground="#FF01142B" SelectionChanged="lbImagens_SelectionChanged">
-                          
+
+            <ListBox Name="lbImagens" HorizontalAlignment="Left" Height="185" Margin="276,165,0,0" VerticalAlignment="Top" Width="352" Foreground="#FF01142B" SelectionChanged="lbImagens_SelectionChanged" Background="#FF9AD2F9">
+
             </ListBox>
-            
-
-
-            <Image Name="Imagem" HorizontalAlignment="Left" Height="215" Margin="436,143,0,0" VerticalAlignment="Top" Width="209" Source="Assets/hospital.png" Stretch="Fill"/>
             <Button Name="btnSeleImagem" Width="221" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="22,0,435,148" Content="SELECIONAR IMAGEM" Background="#FF2C6AD8" Click="btnSelecionarImagem_Clik" />
             <TextBox Name="txtCPF" HorizontalAlignment="Left" Height="23" Margin="81,175,0,0" TextWrapping="Wrap" Text="CPF do Paciente" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.923,-0.126" IsReadOnly="True"/>
             <TextBox  Name="txtNome" HorizontalAlignment="Left" Height="23" Margin="81,203,0,0" TextWrapping="Wrap" Text="Nome do Paciente " VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.759,0.516" IsReadOnly="True"/>
@@ -74,6 +70,7 @@
 
         </Grid>
         <Label Content="Paciente Atual" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="48,143,0,0" Foreground="Black" Width="97"/>
+        <Label Content="Lista das Imagens" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="289,143,0,0" Foreground="Black" Width="111"/>
 
     </Grid>
 

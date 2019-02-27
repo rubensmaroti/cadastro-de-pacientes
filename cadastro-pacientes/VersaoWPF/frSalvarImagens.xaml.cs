@@ -16,6 +16,7 @@ using Biblioteca.VOs;
 using System.ComponentModel;
 using System.Threading;
 using Biblioteca.DAOs;
+using System.IO;
 
 namespace VersaoWPF
 {
@@ -83,7 +84,7 @@ namespace VersaoWPF
             if (lbImagens.Items.Count == 0)
             {
                 MessageBox.Show("Imagens Salvas Com sucesso", "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                Imagem.Source = VariaveisGlobais.image;
+              
             }
 
         }
@@ -107,28 +108,50 @@ namespace VersaoWPF
 
         private void btnSelecionarImagem_Clik(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                OpenFileDialog file = new OpenFileDialog();
-
-               
-                if (file.ShowDialog() == true)
+           
+                if(VariaveisGlobais.pacienteVO.CPF == null)
                 {
-                    ImagensVO imagens = new ImagensVO(VariaveisGlobais.pacienteVO, file);
+                    MessageBox.Show("Porfavor Escolha um paciente primeiro.");
+                    return;
+                }
 
-                    lbImagens.Items.Add(imagens);
-                    Imagem.Source = new BitmapImage(new Uri(file.FileName));
+                System.Windows.Forms.DialogResult result;
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    result = dialog.ShowDialog();
+                    if (result == System.Windows.Forms.DialogResult.OK)
+                    {
+                        DirectoryInfo directory = new DirectoryInfo(dialog.SelectedPath);
+                        BuscaArquivos(directory);
+                    }
                 }
 
 
 
-
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }
+            
         }
+
+        private void BuscaArquivos(DirectoryInfo dir)
+        {
+           
+
+            foreach (FileInfo file in dir.GetFiles())
+            {                        
+                if(file.Extension == ".dcm")
+                {
+                    lbImagens.Items.Add(new ImagensVO(VariaveisGlobais.pacienteVO, file));
+                }
+            }
+            
+
+
+            // habilitar se for preciso fazer busca em subpastas
+            // foreach (DirectoryInfo subDir in dir.GetDirectories())
+            // {
+            //   BuscaArquivos(subDir);
+            // }
+        }
+
 
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -178,8 +201,8 @@ namespace VersaoWPF
 
         private void lbImagens_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbImagens.SelectedIndex != -1)
-                Imagem.Source = new BitmapImage(new Uri((lbImagens.SelectedItem as ImagensVO).File.FileName));
+          /*  if (lbImagens.SelectedIndex != -1)
+                Imagem.Source = new BitmapImage(new Uri((lbImagens.SelectedItem as ImagensVO).File.FileName));*/
 
         }
 
