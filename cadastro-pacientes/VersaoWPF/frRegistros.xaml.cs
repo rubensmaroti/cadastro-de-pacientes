@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Biblioteca.Enumeradores;
 using Biblioteca.DAOs;
+using System.Threading;
 
 namespace VersaoWPF
 {
@@ -119,17 +120,34 @@ namespace VersaoWPF
             if(datagrid.SelectedItem is PacienteVO)
             {
                 if ((MessageBox.Show("Realmente Deseja Remover este Registro ?(ISTO IRA DELETAR TODAS AS IMAGENS RELACIONADAS AO PACIENTE TAMBEM)", "ATENÇÃO !!!!!", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes))
-                {
+                {                    
 
                     var k = from p in list where ((p is ImagensVO) && p.CPF == (datagrid.SelectedItem as PacienteVO).CPF) select p;
 
                     foreach (var item in k)
-                    {
+                    {                        
                         ImagemDAO.Delete(item as ImagensVO);
-                    }
-                    PacienteDAO.Delete((datagrid.SelectedItem as PacienteVO).CPF);                                       
+                        string x = AppDomain.CurrentDomain.BaseDirectory;
+                        string y = x + @"..\..\Registros\Imagens\" + (item as ImagensVO).CPF + (item as ImagensVO).Caminho;
 
-                    GridConfig();
+                        System.IO.File.Delete(y);
+
+                    }
+
+                    string path = AppDomain.CurrentDomain.BaseDirectory;
+                    string caminho = path + @"..\..\Registros\Imagens\" + (datagrid.SelectedItem as PacienteVO).CPF;
+
+                    PacienteDAO.Delete((datagrid.SelectedItem as PacienteVO).CPF);
+                    list.RemoveAll(s => s.CPF == (datagrid.SelectedItem as Registro).CPF);
+
+                    datagrid.ItemsSource = null;
+                    datagrid.ItemsSource = list;
+
+
+
+                    if (System.IO.Directory.Exists(caminho))
+                        System.IO.Directory.Delete(caminho, true);
+                  
 
                 }
 
@@ -139,8 +157,19 @@ namespace VersaoWPF
             {
                 if ((MessageBox.Show("Realmente Deseja Remover este Registro ?", "ATENÇÃO !!!!!", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes))
                 {
+                    
                     ImagemDAO.Delete(datagrid.SelectedItem as ImagensVO);
-                    GridConfig();
+
+
+                    (datagrid.SelectedItem as ImagensVO).File.Delete();
+
+
+
+                    list.Remove(datagrid.SelectedItem as Registro);
+                    datagrid.ItemsSource = null;
+                    datagrid.ItemsSource = list;
+
+
                 }
                 
             }
@@ -153,31 +182,71 @@ namespace VersaoWPF
      
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
-            GridConfig();
+            // GridConfig();
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.ProgressChanged += Worker_ProgressChanged;
+            worker.DoWork += Worker_DoWork;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
+            worker.RunWorkerAsync();
+
+            MessageBox.Show("Porvafor aguarde alguns instantes em quanto os dados são carregados");
         }
 
-        private void GridConfig()
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            pbProgress.Value = e.ProgressPercentage;
+        }
+
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            datagrid.ItemsSource = list;
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             list = new List<Registro>();
-            datagrid.ItemsSource = null;
+           
 
             DataTable data = Metodos.ExecutaSelect("Select * from Paciente ", null);
 
             DataTable data2 = Metodos.ExecutaSelect("Select * from Imagens ", null);
+
+            int k, y;
+            k = data.Rows.Count + data2.Rows.Count;
+            y = 0;
+            var bolean = k > 100 ? false : true;
 
             foreach (var item in data.Rows)
             {
                 PacienteVO x = new PacienteVO();
                 x = Metodos.MontaVOPaciente(item as DataRow);
                 list.Add(x);
+                y++;
+                int razao =Convert.ToInt32( y /(double) k * 100);
+                (sender as BackgroundWorker).ReportProgress(razao);
+                if (bolean)
+                    Thread.Sleep(100);
+               
             }
             foreach (var item in data2.Rows)
             {
                 ImagensVO x = Metodos.MontaVOImagem(item as DataRow);
                 list.Add(x);
+                y++;
+                int razao = Convert.ToInt32(y / (double)k * 100);
+                (sender as BackgroundWorker).ReportProgress(razao);
+                if (bolean)
+                    Thread.Sleep(100);
+
             }
-            datagrid.ItemsSource = list;
+        }
+
+       
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            //GridConfig();
         }
     }
 }

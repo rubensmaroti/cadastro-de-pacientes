@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:VersaoWPF"
         
         mc:Ignorable="d"
-        Title="frCadastro" Height="671" Width="519" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded_1" >
+        Title="frCadastro" Height="671" Width="519" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" Loaded="Window_Loaded_1" ContentRendered="Window_ContentRendered" >
     <Window.Resources>
         <local:ConverterCPF x:Key="ConverterCPF"/>
     </Window.Resources>
@@ -72,10 +72,11 @@
             <TextBox x:Name="txtNome" materialDesign:HintAssist.Hint="NOME" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="125,109,294,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
             <TextBox x:Name="txtCPF" materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="12" Margin="230,107,192,0" Height="36" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
             <ComboBox x:Name="cbTipo" materialDesign:HintAssist.Hint="TIPO" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="LightBlue" Margin="35,112,399,0" Height="33" VerticalAlignment="Top" BorderBrush="#FF03A9F4"/>
+            <ProgressBar x:Name="pbProgress" HorizontalAlignment="Left" Height="39" Margin="35,556,0,0" VerticalAlignment="Top" Width="460"/>
 
 
         </Grid>
-        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="447" VerticalAlignment="Top" Width="476" Margin="25,161,0,0" Background="#FF1D8191" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single" HorizontalGridLinesBrush="#FF008EF0">
+        <DataGrid  Name ="datagrid" HorizontalAlignment="Left" Height="386" VerticalAlignment="Top" Width="476" Margin="25,161,0,0" Background="#FF1D8191" CanUserReorderColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeRows="False" SelectionMode="Single" HorizontalGridLinesBrush="#FF008EF0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="CPF" Binding="{Binding CPF, Converter={StaticResource ConverterCPF}}" IsReadOnly="True" ></DataGridTextColumn>

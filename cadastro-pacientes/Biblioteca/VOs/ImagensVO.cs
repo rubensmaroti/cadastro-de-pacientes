@@ -13,7 +13,7 @@ namespace Biblioteca.VOs
 {
     public class ImagensVO : Registro
     {
-        
+
         private PacienteVO paciente;
         private FileInfo file;
 
@@ -26,6 +26,13 @@ namespace Biblioteca.VOs
             this.paciente = paciente;
             this.CPF = paciente.CPF;
             Tipo = Tipo.Imagem;
+
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            string pastaImagens = path + @"..\..\Registros\Imagens\" + paciente.CPF+ @"\" + Nome;
+
+            file = new FileInfo(pastaImagens);
+
+            
         }
 
         public ImagensVO(PacienteVO paciente, FileInfo file)
@@ -51,7 +58,7 @@ namespace Biblioteca.VOs
 
         }
 
-        
+
 
         public string Caminho
         {
@@ -64,6 +71,10 @@ namespace Biblioteca.VOs
 
         public void SalvarImagem()
         {
+
+            DateTime d = DateTime.Now;
+            string x = d.ToString("yyyyMMddHHmmss") + "-";
+
             if (!string.IsNullOrWhiteSpace(System.IO.Path.GetFileName(File.Name)))
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
@@ -72,8 +83,9 @@ namespace Biblioteca.VOs
                 if (Directory.Exists(pastaImagens) == false)
                     Directory.CreateDirectory(pastaImagens);
 
-                System.IO.File.Copy(File.FullName, pastaImagens+@"\"+ Nome, false);
+                System.IO.File.Copy(File.FullName, pastaImagens + @"\" + x + Nome, false);
 
+                Caminho = x + Nome;
             }
             else
                 throw new Exception("Arquivo não encontrado");

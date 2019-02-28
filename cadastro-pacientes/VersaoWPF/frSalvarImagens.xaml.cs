@@ -47,6 +47,8 @@ namespace VersaoWPF
             }
             else
             {
+                MessageBox.Show("As imagens afim de evitar conflitos são salvas com uma key seguidas de nome atual");
+
                 using (BackgroundWorker worker = new BackgroundWorker())
                 {
                     worker.WorkerReportsProgress = true;
@@ -68,13 +70,13 @@ namespace VersaoWPF
             }
         }
         void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {            
+        {
 
             btnCadastrar.IsEnabled = true;
             btnRemoverImagem.IsEnabled = true;
             btnSair.IsEnabled = true;
             btnSeleImagem.IsEnabled = true;
-            btnSelePaciente.IsEnabled = true;            
+            btnSelePaciente.IsEnabled = true;
             pbWork.Value = 0;
             while (contador != 0)
             {
@@ -84,7 +86,7 @@ namespace VersaoWPF
             if (lbImagens.Items.Count == 0)
             {
                 MessageBox.Show("Imagens Salvas Com sucesso", "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-              
+
             }
 
         }
@@ -108,8 +110,10 @@ namespace VersaoWPF
 
         private void btnSelecionarImagem_Clik(object sender, RoutedEventArgs e)
         {
-           
-                if(VariaveisGlobais.pacienteVO.CPF == null)
+            try
+            {
+
+                if (VariaveisGlobais.pacienteVO.CPF == null)
                 {
                     MessageBox.Show("Porfavor Escolha um paciente primeiro.");
                     return;
@@ -122,73 +126,81 @@ namespace VersaoWPF
                     if (result == System.Windows.Forms.DialogResult.OK)
                     {
                         DirectoryInfo directory = new DirectoryInfo(dialog.SelectedPath);
-                        BuscaArquivos(directory);
+
+                        var x = (MessageBox.Show("Deseja buscar imagens nas subpastas deste diretório também? \n(ISTO IRA LER TODAS AS IMAGENS RELACIONADAS AS SUBPASTAS DO DIRETÓRIO TAMBÉM)".ToUpper(), "ATENÇÃO !!!!!", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes);
+                        BuscaArquivos(directory, x);
                     }
                 }
 
+            }
+            catch(Exception x)
+            {
+
+                MessageBox.Show(x.Message);
+            }
 
 
-            
         }
 
-        private void BuscaArquivos(DirectoryInfo dir)
-        {
-           
+        private void BuscaArquivos(DirectoryInfo dir, bool sub)
+        {            
 
             foreach (FileInfo file in dir.GetFiles())
-            {                        
-                if(file.Extension == ".dcm")
+            {
+                if (file.Extension == ".png" || file.Extension == ".jpg")
                 {
                     lbImagens.Items.Add(new ImagensVO(VariaveisGlobais.pacienteVO, file));
                 }
             }
-            
 
 
-            // habilitar se for preciso fazer busca em subpastas
-            // foreach (DirectoryInfo subDir in dir.GetDirectories())
-            // {
-            //   BuscaArquivos(subDir);
-            // }
+            if (sub)
+            {
+
+                foreach (DirectoryInfo subDir in dir.GetDirectories())
+                {
+                    BuscaArquivos(subDir, sub);
+                }
+            }
         }
 
 
         private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-           
+
         }
 
         int contador = 0;
-       
+
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             if ((sender as BackgroundWorker).CancellationPending)
                 return;
 
             int x = lbImagens.Items.Count;
-           
+
             try
-            {                
+            {
                 foreach (var item in lbImagens.Items)
                 {
-                   
+
                     (item as ImagensVO).SalvarImagem();
                     ImagemDAO.Insert(item as ImagensVO);
                     contador++;
                     int razao = Convert.ToInt32((contador / (double)x) * 100);
-                    (sender as BackgroundWorker).ReportProgress(razao);                   
-                    Thread.Sleep(100);
-                }               
+                    (sender as BackgroundWorker).ReportProgress(razao);
+                    Thread.Sleep(50);
+                }
             }
             catch (System.IO.IOException)
             {
-                MessageBox.Show(string.Format("Primeira imagem da lista já foi salva anterior mente favor remover"),"Alerta!!!",MessageBoxButton.OK,MessageBoxImage.Warning);
-                (sender as BackgroundWorker).CancelAsync();       
-                
+                MessageBox.Show(string.Format("Primeira imagem da lista já foi salva anterior mente favor remover"), "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                (sender as BackgroundWorker).CancelAsync();
+
             }
             catch (Exception y)
             {
-                MessageBox.Show(string.Format("Erro Inesperado:{0}",y.Message), "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(string.Format("Erro Inesperado:{0}", y.Message), "Alerta!!!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 (sender as BackgroundWorker).CancelAsync();
             }
 
@@ -201,23 +213,23 @@ namespace VersaoWPF
 
         private void lbImagens_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          /*  if (lbImagens.SelectedIndex != -1)
-                Imagem.Source = new BitmapImage(new Uri((lbImagens.SelectedItem as ImagensVO).File.FileName));*/
+            if (lbImagens.SelectedIndex != -1)
+                Imagem.Source = new BitmapImage(new Uri((lbImagens.SelectedItem as ImagensVO).File.FullName));
 
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void btnSair_Click(object sender, RoutedEventArgs e)
-        {          
+        {
             this.Close();
         }
-       
 
-         private void btnMinimizar_Click(object sender, RoutedEventArgs e)
+
+        private void btnMinimizar_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
@@ -237,6 +249,6 @@ namespace VersaoWPF
                 MessageBox.Show("Selecione uma imagem na lista de imagens, para removela");
         }
 
-       
+
     }
 }
